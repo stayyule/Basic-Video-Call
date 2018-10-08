@@ -48,7 +48,7 @@
     [self.agoraKit enableVideo];
     // Default mode is disableVideo
     
-    [self.agoraKit setVideoProfile:AgoraVideoProfileLandscape360P swapWidthAndHeight: false];
+    [self.agoraKit setVideoProfile:AgoraRtc_VideoProfile_360P swapWidthAndHeight: false];
 }
 
 // Tutorial Step 3
@@ -58,14 +58,14 @@
     // UID = 0 means we let Agora pick a UID for us
     
     videoCanvas.view = self.localVideo;
-    videoCanvas.renderMode = AgoraVideoRenderModeHidden;
+    videoCanvas.renderMode = AgoraRtc_Render_Hidden;
     [self.agoraKit setupLocalVideo:videoCanvas];
     // Bind local video stream to view
 }
 
 // Tutorial Step 4
 - (void)joinChannel {
-    [self.agoraKit joinChannelByToken:nil channelId:@"demoChannel1" info:nil uid:0 joinSuccess:^(NSString *channel, NSUInteger uid, NSInteger elapsed) {
+    [self.agoraKit joinChannelByKey:nil channelName:@"demoChannel1" info:nil uid:0 joinSuccess:^(NSString *channel, NSUInteger uid, NSInteger elapsed) {
         // Join channel "demoChannel1"
         [self.agoraKit setEnableSpeakerphone:YES];
         [UIApplication sharedApplication].idleTimerDisabled = YES;
@@ -82,7 +82,7 @@
     // Since we are making a simple 1:1 video chat app, for simplicity sake, we are not storing the UIDs. You could use a mechanism such as an array to store the UIDs in a channel.
     
     videoCanvas.view = self.remoteVideo;
-    videoCanvas.renderMode = AgoraVideoRenderModeHidden;
+    videoCanvas.renderMode = AgoraRtc_Render_Hidden;
     [self.agoraKit setupRemoteVideo:videoCanvas];
     // Bind remote video stream to view
     
@@ -96,7 +96,7 @@
 }
 
 - (void)leaveChannel {
-    [self.agoraKit leaveChannel:^(AgoraChannelStats *stat) {
+    [self.agoraKit leaveChannel:^(AgoraRtcStats *stat) {
         [self hideControlButtons];     // Tutorial Step 8
         [UIApplication sharedApplication].idleTimerDisabled = NO;
         [self.remoteVideo removeFromSuperview];
@@ -106,7 +106,7 @@
 }
 
 // Tutorial Step 7
-- (void)rtcEngine:(AgoraRtcEngineKit *)engine didOfflineOfUid:(NSUInteger)uid reason:(AgoraUserOfflineReason)reason {
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine didOfflineOfUid:(NSUInteger)uid reason:(AgoraRtcUserOfflineReason)reason {
     self.remoteVideo.hidden = true;
 }
 
