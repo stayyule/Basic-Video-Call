@@ -18,7 +18,6 @@ import android.widget.Toast
 import io.agora.rtc.IRtcEngineEventHandler
 import io.agora.rtc.RtcEngine
 import io.agora.rtc.video.VideoCanvas
-import io.agora.rtc.video.VideoEncoderConfiguration
 
 class VideoChatViewActivity : AppCompatActivity() {
 
@@ -159,11 +158,7 @@ class VideoChatViewActivity : AppCompatActivity() {
     // Tutorial Step 2
     private fun setupVideoProfile() {
         mRtcEngine!!.enableVideo()
-//      mRtcEngine!!.setVideoProfile(Constants.VIDEO_PROFILE_360P, false) // Earlier than 2.3.0
-        mRtcEngine!!.setVideoEncoderConfiguration(VideoEncoderConfiguration(VideoEncoderConfiguration.VD_640x360,
-                VideoEncoderConfiguration.FRAME_RATE.FRAME_RATE_FPS_15,
-                VideoEncoderConfiguration.STANDARD_BITRATE,
-                VideoEncoderConfiguration.ORIENTATION_MODE.ORIENTATION_MODE_FIXED_PORTRAIT))
+        mRtcEngine!!.setVideoProfile(Constants.VIDEO_PROFILE_360P, false) // Earlier than 2.3.0
     }
 
     // Tutorial Step 3
